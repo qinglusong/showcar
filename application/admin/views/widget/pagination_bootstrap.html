@@ -1,0 +1,55 @@
+<{if $pagination_data['pagination_flag']}>
+<div class="row">
+	<div class="span12">
+		<div class="dataTables_paginate paging_bootstrap pagination">
+			<ul>
+				<li class="next">
+					<a href="<{$pagination_data['url_prefix']}>0">首页</a>
+				</li>
+				<li class="prev <{if $pagination_data['page'] <=1}>disabled<{/if}>">
+					<a href="<{if $pagination_data['page']<=1}>javascript:void(0)'<{else}><{$pagination_data['url_prefix']}><{$pagination_data['page'] - 1}><{/if}>">上一页</a>
+				</li>
+				
+				<{for $foo=$pagination_data['page_begin'] to $pagination_data['page_end']}>
+					<li class="<{if $pagination_data['page'] == $foo}>active<{/if}>">
+						<a href="<{if $pagination_data['page'] == $foo}>javascript:void(0)'<{else}><{$pagination_data['url_prefix']}><{$foo}><{/if}>"><{$foo}></a>
+					</li>
+				<{/for}>
+				<li class="next <{if $pagination_data['page'] >= $pagination_data['total_pages']}>disabled<{/if}>">
+					<a href="<{if $pagination_data['page'] >= $pagination_data['total_pages']}>javascript:void(0)'<{else}><{$pagination_data['url_prefix']}><{$pagination_data['page'] + 1}><{/if}>">下一页</a>
+				</li>
+				<li class="next">
+					<a href="<{$pagination_data['url_prefix']}><{$pagination_data['total_pages']}>">末页</a>
+				</li>
+				&nbsp;&nbsp;
+				<li>
+					<div class="input-prepend input-append">
+					  <span class="add-on">跳转到</span>
+					  	<input type='text' id="jumppage" placeholder="1 - <{$pagination_data['total_pages']}>" min="1" max="<{$pagination_data['total_pages']}>" value="<{if $pagination_data['page'] > 1}><{$pagination_data['page']}><{else}><{/if}>" class='span3' />
+					  <span class="add-on">页</span>
+					</div>
+					<input type='button' id='jumpbtn' value='跳转' class='btn btn-success'/>
+				</li>
+
+				<li>
+					<a>
+					数据<{$pagination_data['page']*$pagination_data['page_size']+1 - $pagination_data['page_size']}>-<{$pagination_data['page']*$pagination_data['page_size']}> of <{$pagination_data['total_rows']}>
+						&nbsp;&nbsp;&nbsp;当前第<{$pagination_data['page']}>页 / 共<{$pagination_data['total_pages']}>页
+					</a>
+				</li>
+
+			</ul>
+		</div>
+	</div>
+</div>
+<script>
+	$(function(){
+		$('#jumpbtn').click(function(){
+			var gopage = $('#jumppage').val();
+			var gourl = "<{$pagination_data['url_prefix']}>" + gopage;
+			window.location.href = gourl;
+		});
+		
+	});
+</script>
+<{/if}>

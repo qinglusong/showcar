@@ -1,0 +1,5 @@
+RewriteEngine on 
+#如果非index.php 或者admin.php 或者images或者robots.txt 就执行紧邻的 RewriteRule规则
+RewriteCond $1 !^(index\.php|admin\.php|statics|images|robots\.txt) 
+#匹配所有的路径映射到入口文件
+RewriteRule ^(.*)$ /index.php/$1 [L]

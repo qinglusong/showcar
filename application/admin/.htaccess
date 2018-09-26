@@ -1,0 +1,5 @@
+RewriteEngine on 
+ 
+RewriteCond $1 !^(admin\.php|images|robots\.txt) 
+ 
+RewriteRule ^(.*)$ /admin.php/$1 [L]
